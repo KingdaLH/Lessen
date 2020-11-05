@@ -1,33 +1,29 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Trap : MonoBehaviour
 {
-    public GameObject player;
+    GameObject player;
     //public Transform target;
-    public int speed;
+    int speed = 5;
     //public int rotationSpeed;
-    public Rigidbody rb;
+    Rigidbody rb;
    // public Transform targetTransform;
    
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         player = GameObject.FindWithTag("Player");
+        Debug.Log("speler positie" + player.transform.position);
+        Vector3 playerPos = player.transform.position;
+        transform.rotation = Quaternion.LookRotation(playerPos);
     }
 
     private void FixedUpdate()
     {
-        LaunchTrap();
+        transform.position += transform.forward * speed * Time.deltaTime;
     }
-
-    // Targets a gameobject and launches the coin like a projectile
-    private void LaunchTrap()
-    {
-        Quaternion rotation = Quaternion.LookRotation(player.transform.position - transform.position);
-        //Transform.rotation = Quaternion.Slerp(transform.position, rotation, rotationSpeed);
-        transform.rotation = rotation;
-        rb.AddForce(0,0, -speed * Time.deltaTime, ForceMode.Impulse);
-    }
+    
 }

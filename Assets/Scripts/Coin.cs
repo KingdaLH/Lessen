@@ -11,7 +11,7 @@ public class Coin : MonoBehaviour
 {
    public GameObject wall;
    public Transform target;
-   public int speed;
+   int speed = 30;
    public int rotationSpeed;
    public Rigidbody rb;
    public Transform targetTransform;
@@ -20,20 +20,16 @@ public class Coin : MonoBehaviour
    {
       rb = GetComponent<Rigidbody>();
       wall = GameObject.FindWithTag("Wall");
-   }
-
-   private void FixedUpdate()
-   {
       LaunchCoin();
    }
 
    // Targets a gameobject and launches the coin like a projectile
    private void LaunchCoin()
    {
-      Quaternion rotation = Quaternion.LookRotation(wall.transform.position - transform.position);
+      transform.LookAt(wall.transform.position);
       //Transform.rotation = Quaternion.Slerp(transform.position, rotation, rotationSpeed);
-      transform.rotation = rotation;
-      rb.AddForce(0,0, -speed * Time.deltaTime, ForceMode.Impulse);
+      //transform.rotation = rotation;
+      rb.AddForce(0,0, -speed, ForceMode.Impulse);
    }
    
    private void OnTriggerEnter(Collider Player)

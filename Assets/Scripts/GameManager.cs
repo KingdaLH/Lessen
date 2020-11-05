@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
         score = 0;
         timerText.SetActive(false);
         ListFill();
-        
+        Invoke("TrapSpawn", Random.Range(1, 5));
         Invoke("CoinSpawn", Random.Range(1, 5));
     }
 
@@ -126,7 +126,7 @@ public class GameManager : MonoBehaviour
 
     private void TrapSpawn()
     {
-
+        Debug.Log("Spawn Trap");
         float delay = Random.Range(1, 5);
 
             Instantiate(Trap, randomNumber[Random.Range(0, 9)], Coin.transform.rotation);
